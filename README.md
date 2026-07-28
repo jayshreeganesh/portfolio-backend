@@ -1,6 +1,10 @@
 # Portfolio — Backend API
 
-Express + MongoDB backend for the portfolio contact form, built as a **Project Enhancement Idea** from the Project 1 brief. Works with both the [vanilla](../portfolio-website) and [React](../portfolio-react) frontends.
+Express + MongoDB backend for the portfolio contact form, built as a **Project Enhancement Idea** from the Project 1 brief. Works with both the [vanilla](https://github.com/jayshreeganesh/portfolio-website) and [React](https://github.com/jayshreeganesh/portfolio-react) frontends.
+
+> Related repos: [Vanilla version](https://github.com/jayshreeganesh/portfolio-website)
+> ([live demo](https://jayshreeganesh.github.io/portfolio-website/)) ·
+> [React version](https://github.com/jayshreeganesh/portfolio-react)
 
 ## Features
 
