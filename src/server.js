@@ -4,6 +4,7 @@ import cors from "cors";
 import rateLimit from "express-rate-limit";
 import { connectDB } from "./db.js";
 import contactRoutes from "./routes/contact.js";
+import visitRoutes from "./routes/visits.js";
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -34,6 +35,7 @@ const contactLimiter = rateLimit({
 // ---- Routes ----
 app.get("/api/health", (_req, res) => res.json({ ok: true, status: "up" }));
 app.use("/api/contact", contactLimiter, contactRoutes);
+app.use("/api/visits", visitRoutes);
 
 // 404
 app.use((_req, res) => res.status(404).json({ ok: false, errors: ["Not found."] }));
