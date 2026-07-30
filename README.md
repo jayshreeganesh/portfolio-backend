@@ -10,8 +10,10 @@ Express + MongoDB backend for the portfolio contact form, built as a **Project E
 
 - `POST /api/contact` — validates and stores a contact message
 - `GET  /api/contact` — lists recent messages (debug/admin helper)
+- `POST /api/visits` — increments and returns the visitor count
+- `GET  /api/visits` — reads the visitor count without incrementing
 - `GET  /api/health` — health check
-- MongoDB persistence via Mongoose (`Message` model)
+- MongoDB persistence via Mongoose (`Message` and `Counter` models)
 - **Graceful no-DB fallback**: if `MONGODB_URI` is unset or unreachable, the
   server still runs and logs messages instead of crashing
 - CORS allow-list, JSON body limit, and rate limiting on the contact route
@@ -69,8 +71,12 @@ portfolio-backend/
 ├── src/
 │   ├── server.js          # Express app + middleware
 │   ├── db.js              # Mongo connection (with fallback)
-│   ├── models/Message.js  # Mongoose schema
-│   └── routes/contact.js  # validation + handlers
+│   ├── models/
+│   │   ├── Message.js     # contact message schema
+│   │   └── Counter.js     # named counter (visits)
+│   └── routes/
+│       ├── contact.js     # validation + handlers
+│       └── visits.js      # visitor counter
 ├── .env.example
 └── package.json
 ```
