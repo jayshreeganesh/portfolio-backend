@@ -10,6 +10,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ---- Middleware ----
+// Hosts like Render/Railway/Fly put the app behind a proxy. Without this, every
+// request looks like it comes from the proxy's IP and the rate limiter would
+// throttle all users as one bucket.
+if (process.env.TRUST_PROXY === "true") {
+  app.set("trust proxy", 1);
+}
+
 app.use(express.json({ limit: "10kb" }));
 
 const allowedOrigins = (process.env.CORS_ORIGIN || "")
@@ -20,6 +27,7 @@ const allowedOrigins = (process.env.CORS_ORIGIN || "")
 app.use(
   cors({
     origin: allowedOrigins.length ? allowedOrigins : true,
+    methods: ["GET", "POST"],
   })
 );
 
@@ -43,8 +51,10 @@ app.use((_req, res) => res.status(404).json({ ok: false, errors: ["Not found."] 
 // ---- Start ----
 async function start() {
   await connectDB(process.env.MONGODB_URI);
-  app.listen(PORT, () => {
-    console.log(`🚀 Server listening on http://localhost:${PORT}`);
+  // Bind 0.0.0.0 so the container/host can route traffic in — binding to
+  // localhost would make the app unreachable and fail platform health checks.
+  app.listen(PORT, "0.0.0.0", () => {
+    console.log(`🚀 Server listening on port ${PORT}`);
   });
 }
 

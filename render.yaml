@@ -1,0 +1,20 @@
+# Render Blueprint — https://render.com/docs/blueprint-spec
+# Deploy: Render dashboard → New → Blueprint → pick this repo.
+services:
+  - type: web
+    name: portfolio-backend
+    runtime: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      # Render injects PORT automatically — don't set it here.
+      - key: TRUST_PROXY
+        value: "true"
+      # Set these in the Render dashboard (marked sync:false so they aren't
+      # committed): your MongoDB Atlas URI and allowed frontend origins.
+      - key: MONGODB_URI
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false

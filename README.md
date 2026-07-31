@@ -18,6 +18,12 @@ Express + MongoDB backend for the portfolio contact form, built as a **Project E
   server still runs and logs messages instead of crashing
 - CORS allow-list, JSON body limit, and rate limiting on the contact route
 
+## Deploying
+
+See **[DEPLOY.md](./DEPLOY.md)** for a step-by-step guide (MongoDB Atlas +
+Render, free tier) that makes the live site's contact form and visitor counter
+work. A [`render.yaml`](./render.yaml) blueprint is included.
+
 ## Getting started
 
 ```bash
